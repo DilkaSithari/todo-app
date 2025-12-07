@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend-app
+    ports:
+      - "8080:8080"
+    networks:
+      - todo-network
+
+networks:
+  todo-network:
+    external: true
