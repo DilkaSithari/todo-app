@@ -26,6 +26,7 @@ public class TaskController {
 
     @GetMapping
     public List<Task> getRecent() {
+        log.info("HIT - /api/tasks Get Recent 5 Tasks");
         return taskservice.getRecent();
     }
 
@@ -34,16 +35,5 @@ public class TaskController {
         taskservice.markDone(id);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTask(@PathVariable Long id) {
-
-        String message = taskservice.deleteTask(id);
-
-        if ("Task not found".equals(message)) {
-            return ResponseEntity.status(404).body(message);
-        }
-
-        return ResponseEntity.ok(message);
-    }
 }
 

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-task-list',
@@ -9,12 +9,18 @@ import { TaskService } from '../../services/task.service';
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
-export class TaskListComponent {
+export class TaskListComponent implements OnInit {
 
   tasks: any[] = [];
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService) {}
+
+  ngOnInit(): void {
     this.loadTasks();
+
+    this.taskService.refreshNeeded$.subscribe(() => {
+      this.loadTasks();
+    });
   }
 
   loadTasks() {
@@ -25,13 +31,7 @@ export class TaskListComponent {
 
   markDone(id: number) {
     this.taskService.markAsDone(id).subscribe(() => {
-      this.loadTasks();
-    });
-  }
-
-  deleteTask(id: number) {
-    this.taskService.deleteTask(id).subscribe(() => {
-      this.loadTasks();
+      this.taskService.triggerRefresh();
     });
   }
 }

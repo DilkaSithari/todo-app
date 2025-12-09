@@ -30,17 +30,5 @@ public class TaskService {
         t.setCompleted(true);
         taskRepository.save(t);
     }
-
-    public String deleteTask(Long id) {
-
-        Optional<Task> taskOptional = taskRepository.findById(id);
-
-        if (taskOptional.isEmpty()) {
-            return "Task not found";
-        }
-
-        taskRepository.deleteById(id);
-        return "Task deleted successfully";
-    }
 }
 

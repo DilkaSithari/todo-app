@@ -23,8 +23,11 @@ export class TaskFormComponent {
       title: this.title,
       description: this.description
     }).subscribe(() => {
+
       this.title = '';
       this.description = '';
+      this.taskService.triggerRefresh();
     });
   }
+
 }
