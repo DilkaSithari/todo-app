@@ -6,22 +6,25 @@ import { TaskService } from '../../services/task.service';
   selector: 'app-task-form',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './task-form.component.html'
+  templateUrl: './task-form.component.html',
+  styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent {
+
   title = '';
   description = '';
 
   constructor(private taskService: TaskService) {}
 
   addTask() {
+    if (!this.title) return;
+
     this.taskService.addTask({
       title: this.title,
       description: this.description
     }).subscribe(() => {
       this.title = '';
       this.description = '';
-      window.location.reload();
     });
   }
 }

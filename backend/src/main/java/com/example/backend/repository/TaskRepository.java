@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findTop5ByCompletedOrderByCreatedAtDesc(boolean completed);
+
+
 }
 

@@ -7,27 +7,40 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
 
     @Autowired
-    TaskRepository repository;
+    TaskRepository taskRepository;
 
     public Task create(Task t) {
         t.setCompleted(false);
         t.setCreatedAt(LocalDateTime.now());
-        return repository.save(t);
+        return taskRepository.save(t);
     }
 
     public List<Task> getRecent() {
-        return repository.findTop5ByCompletedOrderByCreatedAtDesc(false);
+        return taskRepository.findTop5ByCompletedOrderByCreatedAtDesc(false);
     }
 
     public void markDone(Long id) {
-        Task t = repository.findById(id).orElseThrow();
+        Task t = taskRepository.findById(id).orElseThrow();
         t.setCompleted(true);
-        repository.save(t);
+        taskRepository.save(t);
+    }
+
+    public String deleteTask(Long id) {
+
+        Optional<Task> taskOptional = taskRepository.findById(id);
+
+        if (taskOptional.isEmpty()) {
+            return "Task not found";
+        }
+
+        taskRepository.deleteById(id);
+        return "Task deleted successfully";
     }
 }
 

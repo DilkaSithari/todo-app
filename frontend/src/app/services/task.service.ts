@@ -17,8 +17,12 @@ export class TaskService {
   addTask(task: any) {
     return this.http.post(this.apiUrl, task);
   }
+  deleteTask(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 
-  markDone(id: number) {
+  markAsDone(id: number) {
     return this.http.put(`${this.apiUrl}/${id}/done`, {});
   }
+
 }
