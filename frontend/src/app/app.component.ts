@@ -9,4 +9,6 @@ import { TaskListComponent } from './components/task-list/task-list.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {}
+export class AppComponent {
+  title = 'frontend';
+}

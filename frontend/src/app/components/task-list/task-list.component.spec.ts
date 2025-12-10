@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TaskListComponent } from './task-list.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TaskListComponent', () => {
   let component: TaskListComponent;
@@ -8,16 +8,18 @@ describe('TaskListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskListComponent]
-    })
-    .compileComponents();
+      imports: [
+        HttpClientTestingModule,
+        TaskListComponent
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create component', () => {
     expect(component).toBeTruthy();
   });
 });
